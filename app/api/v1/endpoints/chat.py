@@ -1,20 +1,11 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
-from app.db.session import SessionLocal
+from app.api.deps import get_db
 from app.schemas.chat import ChatRequest
 from app.services.chat_service import get_ai_response
 
 router = APIRouter()
-
-
-def get_db():
-    db = SessionLocal()
-
-    try:
-        yield db
-    finally:
-        db.close()
 
 
 @router.post("/chat")

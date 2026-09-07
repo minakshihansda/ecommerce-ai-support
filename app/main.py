@@ -1,9 +1,7 @@
 from fastapi import FastAPI
 
-from app.api.v1.endpoints import health, products, chat
+from app.api.v1.router import router
 
 app = FastAPI(title="E-Commerce AI Support")
 
-app.include_router(health.router)
-app.include_router(products.router)
-app.include_router(chat.router)
+app.include_router(router)
