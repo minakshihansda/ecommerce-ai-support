@@ -1,30 +1,16 @@
+from sqlalchemy.orm import Session
+
+from app.db.models.product import Product
 from app.llm.groq_provider import generate_response
 
 
-PRODUCTS = [
-    {
-        "id": 1,
-        "name": "Wireless Headphones",
-        "price": 1499
-    },
-    {
-        "id": 2,
-        "name": "Smart Watch",
-        "price": 2499
-    },
-    {
-        "id": 3,
-        "name": "USB-C Charger",
-        "price": 799
-    }
-]
+def get_ai_response(message: str, db: Session):
+    products = db.query(Product).all()
 
-
-def get_ai_response(message: str):
     product_information = "\n".join(
         [
-            f"ID: {p['id']}, Name: {p['name']}, Price: ₹{p['price']}"
-            for p in PRODUCTS
+            f"ID: {p.id}, Name: {p.name}, Price: ₹{p.price}"
+            for p in products
         ]
     )
 

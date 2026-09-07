@@ -1,41 +1,44 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+from sqlalchemy.orm import Session
+
+from app.db.session import SessionLocal
+from app.db.models.product import Product
 
 router = APIRouter()
 
 
-PRODUCTS = [
-    {
-        "id": 1,
-        "name": "Wireless Headphones",
-        "price": 1499
-    },
-    {
-        "id": 2,
-        "name": "Smart Watch",
-        "price": 2499
-    },
-    {
-        "id": 3,
-        "name": "USB-C Charger",
-        "price": 799
-    }
-]
+def get_db():
+    db = SessionLocal()
+
+    try:
+        yield db
+    finally:
+        db.close()
 
 
 @router.get("/products")
-def products():
-    return PRODUCTS
+def products(db: Session = Depends(get_db)):
+    return db.query(Product).all()
 
 
 @router.get("/products/cheapest")
-def cheapest_product():
-    return min(PRODUCTS, key=lambda x: x["price"])
+def cheapest_product(db: Session = Depends(get_db)):
+    return (
+        db.query(Product)
+        .order_by(Product.price.asc())
+        .first()
+    )
 
 
 @router.get("/products/{product_id}")
-def get_product(product_id: int):
-    for product in PRODUCTS:
-        if product["id"] == product_id:
-            return product
+def get_product(product_id: int, db: Session = Depends(get_db)):
+    product = (
+        db.query(Product)
+        .filter(Product.id == product_id)
+        .first()
+    )
+
+    if product:
+        return product
 
     return {"message": "Product not found"}
