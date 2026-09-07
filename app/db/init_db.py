@@ -1,6 +1,9 @@
+
 from app.db.base import Base
 from app.db.session import SessionLocal, engine
 from app.db.models.product import Product
+from app.db.models.customer import Customer
+from app.db.models.order import Order
 
 
 PRODUCTS = [
