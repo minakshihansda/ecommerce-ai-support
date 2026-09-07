@@ -8,6 +8,7 @@ from app.api.v1.endpoints import (
     customers,
     orders,
     order_items,
+    support_tickets,
 )
 
 router = APIRouter()
@@ -19,3 +20,4 @@ router.include_router(users.router)
 router.include_router(customers.router)
 router.include_router(orders.router)
 router.include_router(order_items.router)
+router.include_router(support_tickets.router)
