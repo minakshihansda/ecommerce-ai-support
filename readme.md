@@ -8,7 +8,6 @@ An AI-powered e-commerce customer support API built with FastAPI and Groq LLM.
 * Product search by ID
 * Cheapest product lookup
 * AI-powered customer support
-* Product comparison
 * Groq LLM integration
 * Error handling
 
