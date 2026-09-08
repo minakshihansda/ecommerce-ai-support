@@ -29,3 +29,4 @@ def get_product(product_id: int, db: Session = Depends(get_db)):
         return product
 
     return {"message": "Product not found"}
+@app.get("/products")
