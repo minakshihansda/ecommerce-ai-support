@@ -16,5 +16,4 @@ class Product(Base):
         nullable=True
     )
 
-    category = relationship("Category")
-@app.get("/products")
+    category = relationship("Category", back_populates="products")

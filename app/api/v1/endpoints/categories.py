@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.api.deps import get_db
@@ -6,8 +6,10 @@ from app.crud.category import (
     create_category,
     get_all_categories,
     get_category_by_id,
+    get_products_by_category,
 )
 from app.schemas.category import CategoryCreate, CategoryResponse
+
 
 router = APIRouter()
 
@@ -33,6 +35,25 @@ def get_category(
     category = get_category_by_id(db, category_id)
 
     if not category:
-        return {"message": "Category not found"}
+        raise HTTPException(
+            status_code=404,
+            detail="Category not found"
+        )
 
     return category
+
+
+@router.get("/categories/{category_id}/products")
+def products_by_category(
+    category_id: int,
+    db: Session = Depends(get_db)
+):
+    products = get_products_by_category(db, category_id)
+
+    if products is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Category not found"
+        )
+
+    return products

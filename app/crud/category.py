@@ -23,3 +23,14 @@ def get_category_by_id(db: Session, category_id: int):
         .filter(Category.id == category_id)
         .first()
     )
+def get_products_by_category(db: Session, category_id: int):
+    category = (
+        db.query(Category)
+        .filter(Category.id == category_id)
+        .first()
+    )
+
+    if not category:
+        return None
+
+    return category.products
