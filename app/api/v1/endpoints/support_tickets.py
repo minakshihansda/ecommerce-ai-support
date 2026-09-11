@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
-from app.api.deps import get_db
+from app.api.deps import get_db, get_current_user
 from app.crud.support_ticket import (
     create_support_ticket,
     get_support_ticket_by_id,
@@ -20,7 +20,8 @@ router = APIRouter()
 )
 def create_new_support_ticket(
     ticket: SupportTicketCreate,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user_id: int = Depends(get_current_user)
 ):
     return create_support_ticket(db, ticket)
 

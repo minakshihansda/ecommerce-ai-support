@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
-from app.api.deps import get_db
+from app.api.deps import get_db, get_current_user
 from app.crud.customer import create_customer, get_customer_by_id
 from app.schemas.customer import CustomerCreate, CustomerResponse
 
@@ -11,7 +11,8 @@ router = APIRouter()
 @router.post("/customers", response_model=CustomerResponse)
 def create_new_customer(
     customer: CustomerCreate,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user_id: int = Depends(get_current_user)
 ):
     return create_customer(db, customer)
 

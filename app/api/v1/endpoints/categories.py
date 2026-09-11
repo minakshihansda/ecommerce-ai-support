@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from app.api.deps import get_db
+from app.api.deps import get_db, get_current_user
 from app.crud.category import (
     create_category,
     get_all_categories,
@@ -17,7 +17,8 @@ router = APIRouter()
 @router.post("/categories", response_model=CategoryResponse)
 def create_new_category(
     category: CategoryCreate,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user_id: int = Depends(get_current_user)
 ):
     return create_category(db, category.name)
 
