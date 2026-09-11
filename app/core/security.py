@@ -1,20 +1,24 @@
 from datetime import datetime, timedelta, timezone
 import os
+from pathlib import Path
 
 from passlib.context import CryptContext
 from jose import JWTError, jwt
 from dotenv import load_dotenv
 
-load_dotenv()
+
+ENV_FILE = Path(__file__).resolve().parents[1] / ".env"
+load_dotenv(ENV_FILE, override=True)
+
+SECRET_KEY = os.getenv("SECRET_KEY")
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES = 30
+
 
 pwd_context = CryptContext(
     schemes=["bcrypt"],
     deprecated="auto"
 )
-
-SECRET_KEY = os.getenv("SECRET_KEY")
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 
 def hash_password(password: str) -> str:
