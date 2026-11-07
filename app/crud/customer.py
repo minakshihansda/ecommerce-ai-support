@@ -23,3 +23,9 @@ def get_customer_by_id(db: Session, customer_id: int):
         .filter(Customer.id == customer_id)
         .first()
     )
+def get_customer_by_email(db: Session, email: str):
+    return (
+        db.query(Customer)
+        .filter(Customer.email == email)
+        .first()
+    )

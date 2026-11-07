@@ -1,15 +1,15 @@
-from pydantic import BaseModel
+﻿from pydantic import BaseModel, ConfigDict, Field
 
 
 class OrderCreate(BaseModel):
-    customer_id: int
-    total_amount: int
+    total_amount: int = Field(gt=0)
 
 
 class OrderResponse(BaseModel):
     id: int
     customer_id: int
     total_amount: int
+    status: str
+    payment_status: str
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)

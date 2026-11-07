@@ -9,6 +9,7 @@ from app.crud.product import (
     get_all_products,
     get_cheapest_product,
     get_product_by_id,
+    get_product_details,
 )
 from app.db.models.category import Category
 from app.schemas.product import (
@@ -29,7 +30,8 @@ def create_new_product(
     return create_product(
         db,
         data.name,
-        data.price
+        data.price,
+        data.image_url
     )
 
 
@@ -44,7 +46,8 @@ def update_product_details(
         db,
         product_id,
         data.name,
-        data.price
+        data.price,
+        data.image_url
     )
 
     if not product:
@@ -84,6 +87,28 @@ def products(db: Session = Depends(get_db)):
 @router.get("/products/cheapest")
 def cheapest_product(db: Session = Depends(get_db)):
     return get_cheapest_product(db)
+
+
+@router.get("/products/{product_id}/details")
+def product_details(
+    product_id: int,
+    db: Session = Depends(get_db)
+):
+    product = get_product_details(db, product_id)
+
+    if not product:
+        raise HTTPException(
+            status_code=404,
+            detail="Product not found"
+        )
+
+    return {
+        "id": product.id,
+        "name": product.name,
+        "price": product.price,
+        "image_url": product.image_url,
+        "category": product.category.name if product.category else None
+    }
 
 
 @router.get("/products/{product_id}")

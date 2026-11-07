@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.api.deps import get_db, get_current_user
@@ -25,6 +25,9 @@ def get_customer(
     customer = get_customer_by_id(db, customer_id)
 
     if not customer:
-        return {"message": "Customer not found"}
+        raise HTTPException(
+            status_code=404,
+            detail="Customer not found"
+        )
 
     return customer
