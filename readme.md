@@ -1,372 +1,230 @@
-# E-Commerce AI Support
+E-Commerce AI Support Assistant
 
-An AI-powered e-commerce customer support API built with FastAPI, SQLAlchemy, Alembic, JWT authentication, and Groq LLM.
+An AI-powered E-Commerce Support System built using Python, FastAPI, PostgreSQL, SQLAlchemy, and Groq LLM. It provides product management, shopping cart, checkout, order tracking, and AI-powered customer support through a web interface.
 
-## Features
+Features
 
-* User registration and login
-* JWT-based authentication
-* Protected API endpoints
-* Get current authenticated user
-* Product listing and search by ID
-* Cheapest product lookup
-* Create, update, and delete products
-* Product-category relationship
-* Category creation and listing
-* Get products by category
-* Customer management
-* Order management
-* Order item management
-* Support ticket management
-* AI-powered customer support
-* Groq LLM integration
-* Database integration with SQLAlchemy
-* Database migrations with Alembic
-* Error handling and validation
-* Interactive API documentation with Swagger UI
+User Features
 
-## Technologies
+- User Registration and Login
+- JWT-based Authentication
+- Browse Available Products
+- Add Products to Cart
+- Update Cart Quantity
+- Remove Products from Cart
+- Checkout and Place Orders
+- View My Orders
+- Track Order Status
+- Cancel Pending Orders
+- AI-powered Customer Support Chatbot
 
-* Python
-* FastAPI
-* SQLAlchemy
-* Alembic
-* Pydantic
-* JWT
-* Passlib
-* python-jose
-* Groq
-* python-dotenv
-* Uvicorn
+Admin Features
 
-## Project Structure
+- Admin Login and Dashboard
+- Manage Order Status
+- Update Payment Status
+- View Order Information
 
-```text
+Backend Features
+
+- RESTful API Development
+- Product and Category Management
+- Customer and Order Management
+- Order Item Management
+- Support Ticket Management
+- Database Integration
+- Database Migrations
+- Password Hashing
+- Error Handling and Validation
+- Swagger API Documentation
+
+Technologies Used
+
+Backend
+
+- Python
+- FastAPI
+- SQLAlchemy
+- Alembic
+- Pydantic
+- JWT Authentication
+- Passlib
+- Groq LLM
+- Uvicorn
+
+Frontend
+
+- HTML5
+- CSS3
+- JavaScript
+
+Database
+
+- PostgreSQL
+
+Tools
+
+- Visual Studio Code
+- Git and GitHub
+- Swagger UI
+
+Project Structure
+
 ecommerce-ai-support/
 │
 ├── app/
 │   ├── api/
-│   │   ├── deps.py
-│   │   └── v1/
-│   │       ├── router.py
-│   │       └── endpoints/
-│   │           ├── auth.py
-│   │           ├── categories.py
-│   │           ├── chat.py
-│   │           ├── customers.py
-│   │           ├── health.py
-│   │           ├── order_items.py
-│   │           ├── orders.py
-│   │           ├── products.py
-│   │           ├── support_tickets.py
-│   │           └── users.py
-│   │
 │   ├── core/
-│   │   ├── config.py
-│   │   └── security.py
-│   │
 │   ├── crud/
-│   │   ├── category.py
-│   │   ├── customer.py
-│   │   ├── order.py
-│   │   ├── order_item.py
-│   │   ├── product.py
-│   │   ├── support_ticket.py
-│   │   └── user.py
-│   │
 │   ├── db/
-│   │   ├── base.py
-│   │   ├── init_db.py
-│   │   ├── session.py
-│   │   └── models/
-│   │       ├── category.py
-│   │       ├── customer.py
-│   │       ├── order.py
-│   │       ├── order_item.py
-│   │       ├── product.py
-│   │       ├── support_ticket.py
-│   │       └── user.py
-│   │
 │   ├── llm/
-│   │   └── groq_provider.py
-│   │
 │   ├── schemas/
-│   │   ├── category.py
-│   │   ├── chat.py
-│   │   ├── customer.py
-│   │   ├── order.py
-│   │   ├── order_item.py
-│   │   ├── product.py
-│   │   ├── support_ticket.py
-│   │   └── user.py
-│   │
 │   ├── services/
-│   │   └── chat_service.py
-│   │
 │   └── main.py
 │
 ├── alembic/
 │   └── versions/
 │
+├── frontend/
+│   └── index.html
+│
+├── tests/
 ├── alembic.ini
 ├── requirements.txt
 ├── .env.example
 ├── .gitignore
 └── README.md
-```
 
-## Run the Project
+Installation and Setup
 
-### 1. Create a virtual environment
+1. Clone the Repository
 
-```bash
+git clone https://github.com/minakshihansda/ecommerce-ai-support.git
+
+cd ecommerce-ai-support
+
+2. Create a Virtual Environment
+
 py -m venv venv
-```
 
-### 2. Activate the virtual environment
+3. Activate Virtual Environment
 
 Windows PowerShell:
 
-```powershell
 venv\Scripts\activate
-```
 
-### 3. Install dependencies
+4. Install Dependencies
 
-```bash
 pip install -r requirements.txt
-```
 
-### 4. Configure environment variables
+5. Configure Environment Variables
 
-Create a `.env` file and add your Groq API key:
+Create a ".env" file in the appropriate project configuration location and configure your database connection, secret key, and Groq API key.
 
-```env
-GROQ_API_KEY=your_api_key_here
-```
+Example:
 
-Do not upload your real API key to GitHub.
+DATABASE_URL=your_database_connection
+SECRET_KEY=your_secret_key
+GROQ_API_KEY=your_groq_api_key
 
-### 5. Run database migrations
+Important: Never upload your real API keys or secret credentials to GitHub.
 
-```bash
+6. Run Database Migrations
+
 alembic upgrade head
-```
 
-### 6. Start the FastAPI server
+7. Start the Backend Server
 
-```bash
-py -m uvicorn app.main:app --reload
-```
+uvicorn app.main:app --reload
 
-The API will run at:
+Backend URL:
 
-```text
 http://127.0.0.1:8000
-```
 
-## API Documentation
+8. Open the Frontend
 
-After starting the server, open Swagger UI:
+Open "frontend/index.html" using the VS Code Live Server extension.
 
-```text
+API Documentation
+
+After starting the backend server, open Swagger UI:
+
 http://127.0.0.1:8000/docs
-```
 
-Swagger UI allows you to view and test the API endpoints interactively.
+Swagger UI allows users to explore and test the available API endpoints.
 
-## Authentication
+Main API Modules
 
-The API uses JWT-based authentication.
+Module| Description
+Authentication| User registration and login
+Users| User management
+Products| Product listing and management
+Categories| Product category management
+Customers| Customer management
+Orders| Order creation and management
+Order Items| Order item management
+Support Tickets| Customer support ticket management
+Chat| AI-powered customer support
+Health| Backend health check
 
-### Register User
+AI Chatbot
 
-```http
-POST /users
-```
+The project integrates Groq LLM to provide AI-powered customer support.
 
-Example request:
+The chatbot can use product information from the database to answer customer questions.
 
-```json
-{
-  "name": "John",
-  "email": "john@example.com",
-  "password": "password123"
-}
-```
+Example:
 
-### Login
-
-```http
-POST /login
-```
-
-Example request:
-
-```json
-{
-  "email": "john@example.com",
-  "password": "password123"
-}
-```
-
-The response contains an access token:
-
-```json
-{
-  "message": "Login successful",
-  "access_token": "your_access_token",
-  "token_type": "bearer",
-  "user_id": 1
-}
-```
-
-Use the access token in Swagger's **Authorize** button for protected endpoints.
-
-### Current User
-
-```http
-GET /me
-```
-
-Returns information about the authenticated user.
-
-## API Endpoints
-
-### Health
-
-| Method | Endpoint  | Description      |
-| ------ | --------- | ---------------- |
-| GET    | `/health` | Check API health |
-
-### Authentication and Users
-
-| Method | Endpoint           | Description                    |
-| ------ | ------------------ | ------------------------------ |
-| POST   | `/users`           | Register a new user            |
-| POST   | `/login`           | Login and receive JWT token    |
-| GET    | `/me`              | Get current authenticated user |
-| GET    | `/users/{user_id}` | Get user by ID                 |
-
-### Products
-
-| Method | Endpoint                          | Description                    |
-| ------ | --------------------------------- | ------------------------------ |
-| GET    | `/products`                       | Get all products               |
-| GET    | `/products/{product_id}`          | Get product by ID              |
-| GET    | `/products/cheapest`              | Find the cheapest product      |
-| POST   | `/products`                       | Create a product               |
-| PUT    | `/products/{product_id}`          | Update a product               |
-| DELETE | `/products/{product_id}`          | Delete a product               |
-| PUT    | `/products/{product_id}/category` | Assign a category to a product |
-
-### Categories
-
-| Method | Endpoint                             | Description                |
-| ------ | ------------------------------------ | -------------------------- |
-| POST   | `/categories`                        | Create a category          |
-| GET    | `/categories`                        | Get all categories         |
-| GET    | `/categories/{category_id}`          | Get category by ID         |
-| GET    | `/categories/{category_id}/products` | Get products in a category |
-
-### Customers
-
-| Method | Endpoint                   | Description        |
-| ------ | -------------------------- | ------------------ |
-| POST   | `/customers`               | Create a customer  |
-| GET    | `/customers/{customer_id}` | Get customer by ID |
-
-### Orders
-
-| Method | Endpoint             | Description     |
-| ------ | -------------------- | --------------- |
-| POST   | `/orders`            | Create an order |
-| GET    | `/orders/{order_id}` | Get order by ID |
-
-### Order Items
-
-| Method | Endpoint                 | Description          |
-| ------ | ------------------------ | -------------------- |
-| POST   | `/order-items`           | Create an order item |
-| GET    | `/order-items/{item_id}` | Get order item by ID |
-
-### Support Tickets
-
-| Method | Endpoint                       | Description              |
-| ------ | ------------------------------ | ------------------------ |
-| POST   | `/support-tickets`             | Create a support ticket  |
-| GET    | `/support-tickets/{ticket_id}` | Get support ticket by ID |
-
-### AI Support
-
-| Method | Endpoint | Description                                 |
-| ------ | -------- | ------------------------------------------- |
-| POST   | `/chat`  | Get an AI-powered customer support response |
-
-## AI Chat
-
-The `/chat` endpoint uses product information from the database and the Groq LLM to generate customer support responses.
-
-Example request:
-
-```json
 {
   "message": "What is the cheapest product you have?"
 }
-```
 
-Example response:
+The chatbot provides a response based on the available product information.
 
-```json
-{
-  "answer": "The cheapest product is the USB-C Charger (ID: 3) at ₹799."
-}
-```
+Testing
 
-The `/chat` endpoint requires authentication.
+Automated tests were executed using Pytest.
 
-## Database and Migrations
+Test Result:
 
-The project uses SQLAlchemy for database operations and Alembic for database schema migrations.
+- Total Tests: 9
+- Passed: 9
+- Failed: 0
 
-Run migrations with:
+Security
 
-```bash
-alembic upgrade head
-```
+- Passwords are stored in hashed form.
+- JWT is used for authentication.
+- Protected API endpoints require authentication.
+- Secret credentials are stored in environment variables.
+- Sensitive files are excluded through ".gitignore".
 
-## Security
+Project Purpose
 
-* Passwords are stored as hashed values.
-* JWT tokens are used for authentication.
-* Protected endpoints require a valid Bearer token.
-* The real Groq API key must remain in `.env`.
-* `.env`, database files, virtual environments, and Python cache files are excluded through `.gitignore`.
+The main purpose of this project is to develop an AI-powered e-commerce support system that combines:
 
-## Project Purpose
+- E-Commerce Operations
+- REST API Development
+- Database Management
+- User Authentication
+- Shopping Cart and Checkout
+- Order Tracking
+- Admin Order Management
+- AI-powered Customer Support
 
-This project demonstrates how FastAPI can be used to build an e-commerce customer support backend combining:
+Future Improvements
 
-* REST APIs
-* JWT authentication
-* Database operations
-* Product and category management
-* Customer and order management
-* Support ticket management
-* SQLAlchemy ORM
-* Alembic migrations
-* AI-powered customer support
-* Groq LLM integration
+- Online Payment Gateway Integration
+- Persistent Chat History
+- Product Search and Filtering
+- Email Notifications
+- Cloud Deployment
 
-## Future Improvements
-
-* Persistent chat history
-* Product search and filtering
-* Automated tests
-* Frontend interface
-* Role-based authorization
-* API deployment to a cloud platform
-
-## Author
+Author
 
 Minakshi Hansda
+
+
+📄 License
+
+This project was developed for educational purposes.
